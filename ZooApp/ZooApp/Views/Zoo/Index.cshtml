@@ -1,0 +1,20 @@
+﻿@model List<ZooModel>
+<table class="table table-bordered table-responsive table-hover">  
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Gender</th>
+        <th>Age</th>
+    </tr>
+    @foreach (var animal in Model)
+{
+    <tr>
+        <th>@animal.Name</th>
+        <th>@animal.Description</th>
+        <th>@animal.Gender</th>
+        <th>@animal.Age</th>
+        <th>@Html.ActionLink("Delete","DeleteAnimal", "Zoo", new { id=@animal.Id})</th>
+        <th>@Html.ActionLink("Edit","EditAnimal", "Zoo", new { id=@animal.Id})</th>
+    </tr>
+}
+</table>

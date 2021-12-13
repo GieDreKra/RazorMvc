@@ -1,0 +1,23 @@
+﻿@model ZooModel
+
+@using (Html.BeginForm("SendEditData", "Zoo", FormMethod.Post))
+    {
+
+
+        @Html.LabelFor(a=>a.Name)
+        @Html.TextBoxFor(a=>@Model.Name)
+
+        @Html.LabelFor(b=>b.Description)
+        @Html.TextBoxFor(b=>@Model.Description)
+
+        @Html.LabelFor(c=>c.Gender)
+        @Html.TextBoxFor(c=>@Model.Gender)
+  
+        @Html.LabelFor(d=>d.Age)
+        @Html.TextBoxFor(d=>d.Age)
+
+        @Html.HiddenFor(e=>e.Id)
+  
+        <input type="submit" value="Submit"/>
+
+    }

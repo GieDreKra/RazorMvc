@@ -1,0 +1,14 @@
+﻿@model TodoModel
+
+@using (Html.BeginForm("SendSubmitData", "Home", FormMethod.Post))
+    {
+        
+        @Html.LabelFor(a=>a.Name)
+        @Html.TextBoxFor(a=>a.Name)
+
+        @Html.LabelFor(b=>b.Description)
+        @Html.TextBoxFor(b=>b.Description)
+  
+        <input type="submit" value="Submit"/>
+
+    }
