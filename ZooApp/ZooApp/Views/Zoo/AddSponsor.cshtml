@@ -1,0 +1,18 @@
+﻿@model SponsorModel
+
+@using (Html.BeginForm("SendSubmitDataSponsor", "Zoo", FormMethod.Post))
+    {        
+        @Html.LabelFor(a=>a.FirstName)
+        @Html.TextBoxFor(a=>a.FirstName)
+
+        @Html.LabelFor(b=>b.LastName)
+        @Html.TextBoxFor(b=>b.LastName)
+
+        @Html.LabelFor(c=>c.Amount)
+        @Html.TextBoxFor(c=>c.Amount)
+  
+        @Html.LabelFor(d=>d.ZooId)
+        @Html.TextBoxFor(d=>d.ZooId)
+  
+        <input type="submit" value="Submit"/>
+    }

@@ -1,0 +1,18 @@
+﻿@model List<SponsorModel>
+<table class="table table-bordered table-responsive table-hover">  
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Amount</th>
+        <th>Zoo ID</th>
+    </tr>
+    @foreach (var sponsor in Model)
+{
+    <tr>
+        <th>@sponsor.FirstName</th>
+        <th>@sponsor.LastName</th>
+        <th>@sponsor.Amount</th>
+        <th>@sponsor.ZooId</th>
+    </tr>
+}
+</table>

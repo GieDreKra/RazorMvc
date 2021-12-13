@@ -40,6 +40,28 @@ namespace ZooApp.Services
             return animals;
         }
 
+        public List<SponsorModel> GetAllSponsors()
+        {
+            List<SponsorModel> sponsors = new List<SponsorModel>();
+            _connection.Open();
+
+            using var command = new SqlCommand("select s.Id, s.FirstName, s.LastName, s.Amount, s.ZooId from dbo.Sponsor s", _connection);
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                sponsors.Add(new SponsorModel()
+                {
+                    Id = reader.GetInt32(0),
+                    FirstName = reader.GetString(1),
+                    LastName = reader.GetString(2),
+                    Amount = reader.GetInt32(3),
+                    ZooId = reader.GetInt32(4)
+                });
+            }
+            _connection.Close();
+            return sponsors;
+        }
+
         public void Add(ZooModel model)
         {
             string sql = $"insert into dbo.Zoo (Name,Description,Gender,Age) values ('{model.Name}','{model.Description}','{model.Gender}',{model.Age})";
@@ -57,7 +79,24 @@ namespace ZooApp.Services
             {
                 _connection.Close();
             }
-
+        }
+        public void AddSponsor(SponsorModel model)
+        {
+            string sql = $"insert into dbo.Sponsor (FirstName,LastName,Amount,ZooId) values ('{model.FirstName}','{model.LastName}','{model.Amount}',{model.ZooId})";
+            var command = new SqlCommand(sql, _connection);
+            try
+            {
+                _connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+            }
+            finally
+            {
+                _connection.Close();
+            }
         }
         public void Delete(int id)
         {
@@ -76,6 +115,7 @@ namespace ZooApp.Services
             {
                 _connection.Close();
             }
+
         }
 
         public void Edit(ZooModel model)

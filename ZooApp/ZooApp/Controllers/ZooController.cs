@@ -25,7 +25,18 @@ namespace ZooApp.Controllers
             return View(animals);
         }
 
+        public IActionResult ListSponsors()
+        {
+            var sponsors = _zooSqlService.GetAllSponsors();
+            return View(sponsors);
+        }
+
         public IActionResult AddAnimal()
+        {
+            return View();
+        }
+
+        public IActionResult AddSponsor()
         {
             return View();
         }
@@ -56,6 +67,15 @@ namespace ZooApp.Controllers
             if (model.Name is not null)
             {
                 _zooSqlService.Add(model);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult SendSubmitDataSponsor(SponsorModel model)
+        {
+            if ((model.FirstName is not null) && (model.LastName is not null))
+            {
+                _zooSqlService.AddSponsor(model);
             }
             return RedirectToAction("Index");
         }
