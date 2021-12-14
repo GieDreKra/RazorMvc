@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Dapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,10 +16,12 @@ namespace ZooApp.Controllers
     public class ZooController : Controller
     {
         private readonly ZooSqlService _zooSqlService;
+        private SqlConnection _connection;
 
-        public ZooController(ZooSqlService zooSqlService)
+        public ZooController(ZooSqlService zooSqlService, SqlConnection connection)
         {
             _zooSqlService = zooSqlService;
+            _connection = connection;
         }
 
         public IActionResult Index()
@@ -36,9 +41,18 @@ namespace ZooApp.Controllers
             return View();
         }
 
+        public IEnumerable<ZooModel> GetAnimalList()
+        {
+            string query = "SELECT [Id],[Name] FROM Zoo.dbo.Zoo";
+            IEnumerable<ZooModel> result = _connection.Query<ZooModel>(query);
+            return result;
+        }
+
         public IActionResult AddSponsor()
         {
-            return View();
+            SponsorModel ZM = new SponsorModel();
+            ZM.AnimalList = new SelectList(GetAnimalList(), "Id", "Name"); // model binding
+            return View(ZM);
         }
 
         public ActionResult DeleteAnimal(int id)

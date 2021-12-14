@@ -16,11 +16,11 @@ namespace ZooApp.Services
         {
             _connection = connection;
         }
+
         public List<ZooModel> GetAll()
         {
             List<ZooModel> animals = new List<ZooModel>();
             _connection.Open();
-
             using var command = new SqlCommand("select * from dbo.Zoo", _connection);
             using var reader = command.ExecuteReader();
             while (reader.Read())
@@ -32,9 +32,7 @@ namespace ZooApp.Services
                     Description = reader.GetString(2),
                     Gender = reader.GetString(3),
                     Age = reader.GetInt32(4),
-
                 });
-
             }
             _connection.Close();
             return animals;
@@ -44,7 +42,6 @@ namespace ZooApp.Services
         {
             List<SponsorModel> sponsors = new List<SponsorModel>();
             _connection.Open();
-
             using var command = new SqlCommand("select s.Id, s.FirstName, s.LastName, s.Amount, s.ZooId from dbo.Sponsor s", _connection);
             using var reader = command.ExecuteReader();
             while (reader.Read())
@@ -80,6 +77,7 @@ namespace ZooApp.Services
                 _connection.Close();
             }
         }
+
         public void AddSponsor(SponsorModel model)
         {
             string sql = $"insert into dbo.Sponsor (FirstName,LastName,Amount,ZooId) values ('{model.FirstName}','{model.LastName}','{model.Amount}',{model.ZooId})";
@@ -98,6 +96,7 @@ namespace ZooApp.Services
                 _connection.Close();
             }
         }
+
         public void Delete(int id)
         {
             string sql = $"delete from dbo.Zoo where Id={id}";
@@ -115,7 +114,6 @@ namespace ZooApp.Services
             {
                 _connection.Close();
             }
-
         }
 
         public void Edit(ZooModel model)
@@ -151,9 +149,9 @@ namespace ZooApp.Services
                 Gender = reader.GetString(3),
                 Age = reader.GetInt32(4)
             };
-
             _connection.Close();
             return animal;
         }
+
     }
 }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,4 +16,6 @@ namespace ZooApp.Models
         public string Gender { get; set; }
         public int Age { get; set; }
     }
+
+
 }

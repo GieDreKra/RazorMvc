@@ -12,7 +12,7 @@
         @Html.TextBoxFor(c=>c.Amount)
   
         @Html.LabelFor(d=>d.ZooId)
-        @Html.TextBoxFor(d=>d.ZooId)
-  
+        @Html.DropDownListFor(d => d.ZooId, new SelectList(Model.AnimalList,"Value", "Text"))
+
         <input type="submit" value="Submit"/>
     }
